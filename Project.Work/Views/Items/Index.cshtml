@@ -46,10 +46,10 @@
                         @expense.Comment
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-action="UpdateItems" class="btn btn-sm btn-warning">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-danger">Delete</a>
+                            <a class="btn btn-sm btn-danger" asp-route-id="@expense.Id" asp-action="DeleteItems" asp-controller="Items">Delete</a>
                     </td>
                 </tr>
                 </tbody>

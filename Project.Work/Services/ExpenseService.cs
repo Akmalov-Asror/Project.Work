@@ -32,18 +32,25 @@ public class ExpenseService : IExpenseService
         return data;
     }
 
-    public async Task<List<Entities.Items>> GetExpensiveAsync()
+    public async Task<List<Entities.Items>> GetExpensesAsync()
     {
         return await _appDbContext.Items.ToListAsync();
     }
 
-    public Task DeleteExpensiveAsync(DeleteItemDto deleteItemDto)
+
+    public async Task DeleteExpensiveAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var data = await _appDbContext.Items.FirstOrDefaultAsync(u => u.Id == Id);
+        _appDbContext.Items.Remove(data);
+        await _appDbContext.SaveChangesAsync();
+        
     }
 
-    public Task UpdateItemAsync(UpdateItemDto updateItemDto)
+    public async Task UpdateItemAsync(UpdateItemDto updateItemDto)
     {
-        throw new NotImplementedException();
+        var data = await _appDbContext.Items.FirstOrDefaultAsync(u =>
+            u.Amount == updateItemDto.Amount && u.Category.CategoryName == updateItemDto.CategoryName);
+        _appDbContext.Items.Add(data);
+        await _appDbContext.SaveChangesAsync();
     }
 }
